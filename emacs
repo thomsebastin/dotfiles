@@ -20,8 +20,9 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (tango)))
- '(package-selected-packages (quote (fountain-mode projectile))))
+ '(custom-enabled-themes (quote (wombat)))
+ '(org-agenda-files (quote ("~/Documents/todos.org")))
+ '(package-selected-packages (quote (neotree fountain-mode projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -30,6 +31,9 @@
  )
 
 ;; ============================================================================= ;;
+
+;; disable startup screen
+(setq inhibit-startup-screen t)
 
 ;; disable menu bar
 (menu-bar-mode -1)
@@ -54,3 +58,25 @@
 
 ;; show matching parens
 (show-paren-mode 1)
+
+;; handy functions
+(defun my/insert-line-and-move-cursor-above ()
+  "Insert an empty line above the current line."
+  (interactive)
+    (beginning-of-line)
+    (open-line))
+
+;; text editing helpers
+(global-set-key (kbd "M-9") 'kill-whole-line)
+(global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
+(global-set-key (kbd "<C-S-return>") 'my/insert-line--and-move-cursor-above)
+
+;; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+;; font face
+(add-to-list 'default-frame-alist
+             '(font . "DejaVu Sans Mono-10"))
+
+
