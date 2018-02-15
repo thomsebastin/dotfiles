@@ -59,7 +59,7 @@
 ;; show matching parens
 (show-paren-mode 1)
 
-;; handy functions
+;; handy functions - all functions can go below
 (defun my/insert-line-and-move-cursor-above ()
   "Insert an empty line above the current line."
   (interactive)
