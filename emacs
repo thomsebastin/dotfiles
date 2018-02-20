@@ -60,16 +60,16 @@
 (show-paren-mode 1)
 
 ;; handy functions - all functions can go below
-(defun my/insert-line-and-move-cursor-above ()
+(defun my/insert-line-and-move-cursor-above()
   "Insert an empty line above the current line."
   (interactive)
     (beginning-of-line)
-    (open-line))
+    (open-line 1q))
 
 ;; text editing helpers
 (global-set-key (kbd "M-9") 'kill-whole-line)
 (global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
-(global-set-key (kbd "<C-S-return>") 'my/insert-line--and-move-cursor-above)
+(global-set-key (kbd "<C-S-return>") 'my/insert-line-and-move-cursor-above)
 
 ;; neotree
 (require 'neotree)
@@ -79,4 +79,59 @@
 (add-to-list 'default-frame-alist
              '(font . "DejaVu Sans Mono-10"))
 
+;; functionality for moving a line/region up/down
+(defun move-line (n)
+  "Move the current line up or down by N lines."
+  (interactive "p")
+  (setq col (current-column))
+  (beginning-of-line) (setq start (point))
+  (end-of-line) (forward-char) (setq end (point))
+  (let ((line-text (delete-and-extract-region start end)))
+    (forward-line n)
+    (insert line-text)
+    ;; restore point to original column in moved line
+    (forward-line -1)
+    (forward-char col)))
+
+(defun move-line-up (n)
+  "Move the current line up by N lines."
+  (interactive "p")
+  (move-line (if (null n) -1 (- n))))
+
+(defun move-line-down (n)
+  "Move the current line down by N lines."
+  (interactive "p")
+  (move-line (if (null n) 1 n)))
+
+
+(defun move-region (start end n)
+  "Move the current region up or down by N lines."
+  (interactive "r\np")
+  (let ((line-text (delete-and-extract-region start end)))
+    (forward-line n)
+    (let ((start (point)))
+      (insert line-text)
+      (setq deactivate-mark nil)
+      (set-mark start))))
+
+(defun move-region-up (start end n)
+  "Move the current line up by N lines."
+  (interactive "r\np")
+  (move-region start end (if (null n) -1 (- n))))
+
+(defun move-region-down (start end n)
+  "Move the current line down by N lines."
+  (interactive "r\np")
+  (move-region start end (if (null n) 1 n)))
+
+(defun move-line-region-up (&optional start end n)
+  (interactive "r\np")
+  (if (use-region-p) (move-region-up start end n) (move-line-up n)))
+
+(defun move-line-region-down (&optional start end n)
+  (interactive "r\np")
+  (if (use-region-p) (move-region-down start end n) (move-line-down n)))
+
+(global-set-key (kbd "M-<up>") 'move-line-region-up)
+(global-set-key (kbd "M-<down>") 'move-line-region-down)
 
