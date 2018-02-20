@@ -64,7 +64,7 @@
   "Insert an empty line above the current line."
   (interactive)
     (beginning-of-line)
-    (open-line 1q))
+    (open-line 1))
 
 ;; text editing helpers
 (global-set-key (kbd "M-9") 'kill-whole-line)
