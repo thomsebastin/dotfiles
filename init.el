@@ -22,7 +22,7 @@
    [default default default italic underline success warning error])
  '(custom-enabled-themes (quote (wombat)))
  '(org-agenda-files (quote ("~/Documents/todos.org")))
- '(package-selected-packages (quote (neotree fountain-mode projectile))))
+ '(package-selected-packages (quote (typescript-mode neotree fountain-mode projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
