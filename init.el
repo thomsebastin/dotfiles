@@ -77,7 +77,7 @@
 
 ;; font face
 (add-to-list 'default-frame-alist
-             '(font . "DejaVu Sans Mono-10"))
+             '(font . "DejaVu Sans Mono-12"))
 
 ;; functionality for moving a line/region up/down
 (defun move-line (n)
