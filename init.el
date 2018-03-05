@@ -37,13 +37,11 @@
 
 ;; enable projectile mode
 (use-package projectile
-  :ensure    projectile
+  :ensure  projectile
   :config
-  (projectile-global-mode t)
-  ;; enable caching mode
-  (setq projectile-enable-caching t)
-  ;; indexing folders for fast performance
-  (setq projectile-indexing-method 'native))
+    (projectile-global-mode t)
+    (setq projectile-enable-caching t)
+    (setq projectile-indexing-method 'native))
 
 ;; neotree
 (use-package neotree
@@ -59,10 +57,6 @@
 (global-set-key (kbd "M-9") 'kill-whole-line)
 (global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
 (global-set-key (kbd "<C-S-return>") 'my/insert-line-and-move-cursor-above)
-
-;; font face
-(add-to-list 'default-frame-alist
-             '(font . "DejaVu Sans Mono-12"))
 
 ;; handy functions - all functions can go below
 (defun my/insert-line-and-move-cursor-above()
@@ -138,7 +132,9 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (wombat)))
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(custom-enabled-themes (quote (manoj-dark)))
  '(org-agenda-files (quote ("~/Documents/todos.org")))
  '(package-selected-packages (quote (typescript-mode neotree fountain-mode projectile))))
 (custom-set-faces
