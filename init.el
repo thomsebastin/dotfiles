@@ -9,28 +9,13 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-;; ============================================================================= ;;
+;; to make sure use-package is installed
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; this is added by emacs when you change the theme
-;; ..using M-x customize-themes
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (wombat)))
- '(org-agenda-files (quote ("~/Documents/todos.org")))
- '(package-selected-packages (quote (typescript-mode neotree fountain-mode projectile))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; ============================================================================= ;;
+(eval-when-compile
+  (require 'use-package))
 
 ;; disable startup screen
 (setq inhibit-startup-screen t)
@@ -45,13 +30,14 @@
 (tool-bar-mode -1)
 
 ;; enable projectile mode
-(projectile-global-mode)
-
-;; enable caching mode
-(setq projectile-enable-caching t)
-
-;; indexing folders for fast performance
-(setq projectile-indexing-method 'native)
+(use-package projectile
+  :ensure    projectile
+  :config
+  (projectile-global-mode t)
+  ;; enable caching mode
+  (setq projectile-enable-caching t)
+  ;; indexing folders for fast performance
+  (setq projectile-indexing-method 'native))
 
 ;; enable auto pairing of parenthesis
 (electric-pair-mode 1)
@@ -135,3 +121,26 @@
 (global-set-key (kbd "M-<up>") 'move-line-region-up)
 (global-set-key (kbd "M-<down>") 'move-line-region-down)
 
+
+;; ============================================================================= ;;
+
+;; this is added by emacs when you change the theme
+;; ..using M-x customize-themes
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes (quote (wombat)))
+ '(org-agenda-files (quote ("~/Documents/todos.org")))
+ '(package-selected-packages (quote (typescript-mode neotree fountain-mode projectile))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; ============================================================================= ;;
