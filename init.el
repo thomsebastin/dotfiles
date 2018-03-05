@@ -29,6 +29,12 @@
 ;; disable toolbar
 (tool-bar-mode -1)
 
+;; enable auto pairing of parenthesis
+(electric-pair-mode 1)
+
+;; show matching parens
+(show-paren-mode 1)
+
 ;; enable projectile mode
 (use-package projectile
   :ensure    projectile
@@ -39,11 +45,24 @@
   ;; indexing folders for fast performance
   (setq projectile-indexing-method 'native))
 
-;; enable auto pairing of parenthesis
-(electric-pair-mode 1)
+;; neotree
+(use-package neotree
+  :bind ([f8] . neotree-toggle))
 
-;; show matching parens
-(show-paren-mode 1)
+;; fountain mode
+(use-package fountain-mode)
+
+;; typescript mode
+(use-package typescript-mode)
+
+;; text editing helpers
+(global-set-key (kbd "M-9") 'kill-whole-line)
+(global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
+(global-set-key (kbd "<C-S-return>") 'my/insert-line-and-move-cursor-above)
+
+;; font face
+(add-to-list 'default-frame-alist
+             '(font . "DejaVu Sans Mono-12"))
 
 ;; handy functions - all functions can go below
 (defun my/insert-line-and-move-cursor-above()
@@ -51,19 +70,6 @@
   (interactive)
     (beginning-of-line)
     (open-line 1))
-
-;; text editing helpers
-(global-set-key (kbd "M-9") 'kill-whole-line)
-(global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
-(global-set-key (kbd "<C-S-return>") 'my/insert-line-and-move-cursor-above)
-
-;; neotree
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-
-;; font face
-(add-to-list 'default-frame-alist
-             '(font . "DejaVu Sans Mono-12"))
 
 ;; functionality for moving a line/region up/down
 (defun move-line (n)
@@ -88,7 +94,6 @@
   "Move the current line down by N lines."
   (interactive "p")
   (move-line (if (null n) 1 n)))
-
 
 (defun move-region (start end n)
   "Move the current region up or down by N lines."
