@@ -53,6 +53,9 @@
 ;; typescript mode
 (use-package typescript-mode)
 
+;; company mode
+(use-package company-mode)
+
 ;; text editing helpers
 (global-set-key (kbd "M-9") 'kill-whole-line)
 (global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
@@ -116,6 +119,26 @@
 (defun move-line-region-down (&optional start end n)
   (interactive "r\np")
   (if (use-region-p) (move-region-down start end n) (move-line-down n)))
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 (global-set-key (kbd "M-<up>") 'move-line-region-up)
 (global-set-key (kbd "M-<down>") 'move-line-region-down)
