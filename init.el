@@ -35,6 +35,17 @@
 ;; show matching parens
 (show-paren-mode 1)
 
+;; converting multiple cursors to use 'use-package'
+(use-package multiple-cursors
+  :commands multiple-cursors
+  :init
+  :bind (
+            ("C-c m c" . mc/edit-lines)
+            ("C->"     . mc/mark-next-like-this)
+            ("C-<"     . mc/mark-previous-like-this)
+            ("C-c C-<" . mc/mark-all-like-this)
+))
+
 ;; enable projectile mode
 (use-package projectile
   :ensure  projectile
@@ -53,8 +64,8 @@
 ;; typescript mode
 (use-package typescript-mode)
 
-;; company mode
-(use-package company-mode)
+;; enable company-mode
+(add-hook 'prog-mode-hook 'company-mode)
 
 ;; text editing helpers
 (global-set-key (kbd "M-9") 'kill-whole-line)
@@ -159,7 +170,9 @@
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(custom-enabled-themes (quote (manoj-dark)))
  '(org-agenda-files (quote ("~/Documents/todos.org")))
- '(package-selected-packages (quote (typescript-mode neotree fountain-mode projectile))))
+ '(package-selected-packages
+   (quote
+    (company multiple-cursors typescript-mode neotree fountain-mode projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
