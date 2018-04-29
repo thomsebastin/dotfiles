@@ -67,6 +67,9 @@
 ;; enable company-mode
 (add-hook 'prog-mode-hook 'company-mode)
 
+;; enable line number in prog-mode only
+(add-hook 'prog-mode-hook 'linum-mode)
+
 ;; text editing helpers
 (global-set-key (kbd "M-9") 'kill-whole-line)
 (global-set-key (kbd "<S-return>") (kbd "C-e C-m")) ;shift return to move cursor to next line
@@ -151,6 +154,24 @@
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
+;; TSX settings
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+;; enable typescript-tslint checker
+;; (flycheck-add-mode 'typescript-tslint 'web-mode)
+
+(setq tide-format-options '(
+  :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
+  :placeOpenBraceOnNewLineForFunctions nil
+  :indentSize: 2,
+  :tabSize: 2,
+  :insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces: t))
+
+
 (global-set-key (kbd "M-<up>") 'move-line-region-up)
 (global-set-key (kbd "M-<down>") 'move-line-region-down)
 
@@ -172,7 +193,7 @@
  '(org-agenda-files (quote ("~/Documents/todos.org")))
  '(package-selected-packages
    (quote
-    (company multiple-cursors typescript-mode neotree fountain-mode projectile))))
+    (web-mode company multiple-cursors typescript-mode neotree fountain-mode projectile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
