@@ -23,6 +23,11 @@ Plug 'pbrisbin/vim-colors-off'
 Plug 'muellan/am-colors'
 Plug 'blueshirts/darcula'
 
+" Other Plugins
+Plug 'airblade/vim-gitgutter'
+Plug 'ervandew/supertab'
+Plug 'pangloss/vim-javascript'
+
 " NERD Tree - tree explorer
 " https://github.com/scrooloose/nerdtree
 " http://usevim.com/2012/07/18/nerdtree/
@@ -32,6 +37,15 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " nerdtree-git-plugin - show git status in NERD Tree
 " https://github.com/Xuyuanp/nerdtree-git-plugin
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" grubbox color scheme
+Plug 'morhetz/gruvbox'
+
+" One half light (dark & light available)
+Plug 'sonph/onehalf'
+
+" solarized theme
+Plug 'altercation/vim-colors-solarized'
 
 " vim-airline
 " Enhanced statusline
@@ -95,7 +109,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 function! Dark()
     echom "set bg=dark"
     set bg=dark
-    colorscheme darcula
+    colorscheme gruvbox
     "darcula fix to hide the indents:
     set nolist
 endfunction
@@ -107,20 +121,20 @@ filetype indent on
 
 " syntax highlighting
 syntax on
-set nocompatible            " Disable compatibility to old-time vi
-set termguicolors           " Color support for terminal
-set showmatch               " Show matching brackets.
-set ignorecase              " Do case insensitive matching
-set mouse=v                 " middle-click paste with mouse
-set mouse=n                 " mouse drag support in terminal
-set hlsearch                " highlight search results
-set tabstop=4               " number of columns occupied by a tab character
-set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
-set expandtab               " converts tabs to white space
-set shiftwidth=4            " width for autoindents
-set autoindent              " indent a new line the same amount as the line just typed
-set number                  " add line numbers
-set wildmode=longest,list   " get bash-like tab completions
+set nocompatible                " Disable compatibility to old-time vi
+set termguicolors               " Color support for terminal
+set showmatch                   " Show matching brackets.
+set ignorecase                  " Do case insensitive matching
+set mouse=v                     " middle-click paste with mouse
+set mouse=n                     " mouse drag support in terminal
+set hlsearch                    " highlight search results
+set tabstop=4                   " number of columns occupied by a tab character
+set softtabstop=4               " see multiple spaces as tabstops so <BS> does the right thing
+set expandtab                   " converts tabs to white space
+set shiftwidth=4                " width for autoindents
+set autoindent                  " indent a new line the same amount as the line just typed
+set number relativenumber       " add line relative line numbers
+set wildmode=longest,list       " get bash-like tab completions
 
 " toggle spelling
 nnoremap <leader>s :set invspell<CR>
