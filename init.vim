@@ -27,6 +27,8 @@ Plug 'blueshirts/darcula'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 " NERD Tree - tree explorer
 " https://github.com/scrooloose/nerdtree
