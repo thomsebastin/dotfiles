@@ -43,9 +43,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " grubbox color scheme
 Plug 'morhetz/gruvbox'
 
-" One half light (dark & light available)
-Plug 'sonph/onehalf'
-
 " solarized theme
 Plug 'altercation/vim-colors-solarized'
 
