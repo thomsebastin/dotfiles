@@ -1,7 +1,6 @@
 ;; required in every emacs dotfile for installing
 ;; ..third party packages like projectile and others.
 (require 'package)
-
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
@@ -16,6 +15,9 @@
 
 (eval-when-compile
   (require 'use-package))
+
+;; use inconsolata font
+(set-default-font "Inconsolata 12")
 
 ;; disable startup screen
 (setq inhibit-startup-screen t)
@@ -35,14 +37,23 @@
 ;; show matching parens
 (show-paren-mode 1)
 
+;; overwrite selected text
+(delete-selection-mode t)
+
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
+
 ;; converting multiple cursors to use 'use-package'
 (use-package multiple-cursors
+  :ensure t
   :commands multiple-cursors
   :init
   :bind (
             ("C-c m c" . mc/edit-lines)
-            ("C->"     . mc/mark-next-like-this)
-            ("C-<"     . mc/mark-previous-like-this)
+            ("C-d"     . mc/mark-next-like-this)
+            ("C-D"     . mc/mark-previous-like-this)
             ("C-c C-<" . mc/mark-all-like-this)
 ))
 
@@ -62,10 +73,17 @@
 (use-package fountain-mode)
 
 ;; typescript mode
-(use-package typescript-mode)
+;; (use-package typescript-mode)
 
 ;; enable company-mode
-(add-hook 'prog-mode-hook 'company-mode)
+(use-package company
+  :ensure t
+  :config
+  (global-company-mode t)
+  (setq company-global-modes '(not org-mode)))
+
+(add-hook 'prog-mode-hook 'global-company-mode)
+(define-key company-mode-map (kbd "TAB") 'company-complete)
 
 ;; enable line number in prog-mode only
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -155,12 +173,12 @@
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 ;; TSX settings
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (string-equal "tsx" (file-name-extension buffer-file-name))
-              (setup-tide-mode))))
+;;(require 'web-mode)
+;;(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+;;(add-hook 'web-mode-hook
+;;          (lambda ()
+;;            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+;;              (setup-tide-mode))))
 ;; enable typescript-tslint checker
 ;; (flycheck-add-mode 'typescript-tslint 'web-mode)
 
@@ -189,11 +207,43 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (manoj-dark)))
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(custom-enabled-themes (quote (wombat)))
+ '(custom-safe-themes
+   (quote
+    ("190a9882bef28d7e944aa610aa68fe1ee34ecea6127239178c7ac848754992df" default)))
+ '(fci-rule-color "#383838")
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-agenda-files (quote ("~/Documents/todos.org")))
  '(package-selected-packages
    (quote
-    (web-mode company multiple-cursors typescript-mode neotree fountain-mode projectile))))
+    (web-mode company multiple-cursors typescript-mode neotree fountain-mode projectile)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
