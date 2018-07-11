@@ -57,6 +57,16 @@
             ("C-c C-<" . mc/mark-all-like-this)
 ))
 
+;; expand region for selection between parenthesis, quotes ..etc
+(use-package expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region))
+
+;; undo-tree package
+(use-package undo-tree
+  :ensure t
+  :bind ("C-x u" . undo-tree-visualize))
+
 ;; helm related configs
 (use-package helm
   :ensure t
@@ -76,9 +86,11 @@
   :config (progn
 	    (setq helm-buffers-fuzzy-matching t)
             (helm-mode 1)))
+
 (use-package helm-descbinds
   :ensure t
   :bind ("C-h b" . helm-descbinds))
+
 (use-package helm-files
   :bind (:map helm-find-files-map
 	      ("M-i" . nil)
@@ -87,12 +99,14 @@
 	      ("M-K" . nil)
 	      ("M-h" . nil)
 	      ("M-H" . nil)))
+
 (use-package helm-swoop
   :ensure t
   :bind (("M-m" . helm-swoop)
 	 ("M-M" . helm-swoop-back-to-last-point))
   :init
   (bind-key "M-m" 'helm-swoop-from-isearch isearch-mode-map))
+
 (use-package helm-ag
   :ensure helm-ag
   :bind ("M-p" . helm-projectile-ag)
@@ -102,8 +116,7 @@
 
 (use-package projectile
   :ensure t
-  :bind (("C-p s" . projectile-switch-open-project)
-	 ("C-x p" . projectile-switch-project))
+  :bind (("C-x p" . projectile-switch-project))
   :config
   (projectile-global-mode)
   (setq projectile-enable-caching t))
@@ -119,7 +132,8 @@
   :bind ([f8] . neotree-toggle))
 
 ;; fountain mode
-(use-package fountain-mode)
+(use-package fountain-mode
+  :ensure t)
 
 ;; typescript mode
 ;; (use-package typescript-mode)
